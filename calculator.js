@@ -92,7 +92,7 @@
                         return;
                     }
                     let val=document.getElementById('num').value;
-                    document.getElementById('num').value=evaluatee(val+op2+op1);
+                    document.getElementById('num').value=eval(val+op2+op1);
                     return;
                 }
                 let exp=document.getElementById('num').value;
@@ -103,13 +103,10 @@
                     return;
                 }
                 esp=exp2;
-                if(exp2.charAt(0)=='+' || exp2.charAt(0)=='-')
+     
+                if(isFinite(+eval(exp2)))
                 {
-                    exp2=exp2.slice(1);
-                }
-                if(!isNaN(+evaluatee(exp2)))
-                {
-                    document.getElementById('num').value=evaluatee(exp2);
+                    document.getElementById('num').value=eval(exp2);
                 }
                 else{
                     alert("invalid devision");
@@ -165,124 +162,3 @@ function createElement(text,name,classname,rowid)
                 document.getElementById(rowid).append(td);
                 
 }
-function evaluatee(exp)
-    {
-        let m=(evaluate(exp));
-        return m;
-    }
-	
-	function evaluate(expression)
-	{
-		let tokens = expression.split('');
-
-		// Stack for numbers: 'values'
-		let values = [];
-		let ops = [];
-
-		for (let i = 0; i < tokens.length; i++)
-		{
-			if (tokens[i] == ' ')
-			{
-				continue;
-			}
-			if (tokens[i] >= '0' && tokens[i] <= '9')
-			{
-				let sbuf = "";
-				while (i < tokens.length &&
-						tokens[i] >= '0' &&
-							tokens[i] <= '9')
-				{
-					sbuf = sbuf + tokens[i++];
-				}
-				values.push(parseInt(sbuf, 10));
-		
-				i--;
-			}
-
-			else if (tokens[i] == '(')
-			{
-				ops.push(tokens[i]);
-			}
-
-			else if (tokens[i] == ')')
-			{
-				while (ops[ops.length - 1] != '(')
-				{
-				values.push(applyOp(ops.pop(),
-								values.pop(),
-								values.pop()));
-				}
-				ops.pop();
-			}
-
-			else if (tokens[i] == '+' ||
-					tokens[i] == '-' ||
-					tokens[i] == '*' ||
-					tokens[i] == '/')
-			{
-				
-				
-				while (ops.length > 0 &&
-						hasPrecedence(tokens[i],
-									ops[ops.length - 1]))
-				{
-				values.push(applyOp(ops.pop(),
-								values.pop(),
-								values.pop()));
-				}
-
-				ops.push(tokens[i]);
-			}
-		}
-
-	
-		while (ops.length > 0)
-		{
-			values.push(applyOp(ops.pop(),
-							values.pop(),
-							values.pop()));
-		}
-
-
-		return values.pop();
-	}
-
-
-	function hasPrecedence(op1, op2)
-	{
-		if (op2 == '(' || op2 == ')')
-		{
-			return false;
-		}
-		if ((op1 == '*' || op1 == '/') &&
-			(op2 == '+' || op2 == '-'))
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-
-
-	function applyOp(op, b, a)
-	{
-		switch (op)
-		{
-		case '+':
-			return a + b;
-		case '-':
-			return a - b;
-		case '*':
-			return a * b;
-		case '/':
-			if (b == 0)
-			{
-				return ("Cannot divide by zero");
-			}
-			return parseInt(a / b, 10);
-		}
-		return 0;
-	}
-            
