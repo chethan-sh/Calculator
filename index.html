@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./calculator.css">
+        <script src='./calculator.js'></script>
+    </head>
+    <body>
+        <div class='calculator'>
+            <div class='expression'>
+                <input onmouseover="()=>{}" id='num' value='0' type="text"/> 
+            </div>
+            <div class='functions'>
+                <table id='table1'>
+                        <tr id='row1'>
+                            <script>
+                                createElement('C','c','btn-primary','row1');
+                                createElement('&#x232b','bck','btn-primary','row1');
+                                createElement('&#247','/','btn-primary','row1');
+                                createElement('&#215','*','btn-primary','row1');
+                            </script>
+                        </tr>
+                        <tr id='row2'>
+                            <script>
+                                [7,8,9,'-'].forEach(function(ele){
+                                    createElement(ele,ele,(ele=='-')?'btn-primary':'btn','row2');
+                                })
+                            </script>
+                        </tr>
+                        <tr id='row3'>
+                            <script>
+                                [4,5,6,'+'].forEach(function(ele){
+                                    createElement(ele,ele,(ele=='+')?'btn-primary':'btn','row3');
+                                })
+                            </script>
+                        </tr>
+                        <tr id='row4'>
+                            <script>
+                                [1,2,3,'.'].forEach(function(ele){
+                                    createElement(ele,ele,(ele=='.')?'btn-primary':'btn','row4');
+                                })
+                            </script>
+                        </tr>
+                        <tr id='row5'>
+                            <script>
+                                createElement('0','0','','row5');
+                            </script>
+                                <td  colspan="3" ><button class="btn"  style="font-size:28px;" onclick="operation()"  name='='>=</button></td>
+                        </tr>     
+                </table>
+            </div>
+        </div>
+        <script>
+            num.addEventListener('keydown', (e) => {
+                    e.preventDefault();
+                    append(e.key);
+            });
+        </script>
+        
+    </body>
+</html>
